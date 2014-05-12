@@ -18,6 +18,8 @@ namespace DatosAbiertos
         {
             InitializeComponent();
 
+            App.ViewModel.LeerDirectorios();
+
             // Código de ejemplo para traducir ApplicationBar
             //BuildLocalizedApplicationBar();
         }

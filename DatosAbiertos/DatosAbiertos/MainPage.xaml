@@ -1,26 +1,38 @@
 ﻿<phone:PhoneApplicationPage
-    x:Class="DatosAbiertos.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ViewModel="clr-namespace:DatosAbiertos.ViewModel"
+    x:Class="DatosAbiertos.MainPage"
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     shell:SystemTray.IsVisible="True">
+	<phone:PhoneApplicationPage.Resources>
+		<DataTemplate x:Key="estiloDirectorio">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition/>
+					<RowDefinition/>
+				</Grid.RowDefinitions>
+				<TextBlock HorizontalAlignment="Left" Margin="0" Style="{StaticResource PhoneTextBlockBase}" TextWrapping="Wrap" Text="{Binding NombreDirectorio}" VerticalAlignment="Top"/>
+			</Grid>
+		</DataTemplate>
+	</phone:PhoneApplicationPage.Resources>
 
     <!--LayoutRoot es la cuadrícula raíz donde se coloca todo el contenido de la página-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+	<Grid x:Name="LayoutRoot" Background="Transparent">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
 
-        <!-- NOTA PARA LA TRADUCCIÓN:
+		<!-- NOTA PARA LA TRADUCCIÓN:
             Para traducir las cadenas mostradas, copia sus valores a las claves con el nombre
             correspondiente en el archivo de recursos del idioma neutro (AppResources.resx) de la aplicación y
             reemplaza el valor de texto codificado de forma rígida entre las comillas de los atributos
@@ -39,24 +51,28 @@
             CurrentUICulture de la aplicación en tiempo de ejecución.
          -->
 
-        <!--TitlePanel contiene el nombre de la aplicación y el título de la página-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="MI APLICACIÓN" Style="{StaticResource PhoneTextNormalStyle}" Margin="12,0"/>
-            <TextBlock Text="nombre de la página" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
-        </StackPanel>
-
-        <!--ContentPanel. Colocar aquí el contenido adicional-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-
-        </Grid>
-
-        <!--Quitar la marca de comentarios para ver una cuadrícula de alineación que
+		<!--Quitar la marca de comentarios para ver una cuadrícula de alineación que
             ayuda a comprobar que los controles están alineados en los límites normales.  La imagen tiene un margen superior de -32px para
             tener en cuenta la bandeja del sistema. Establécelo en 0 (o quite el margen)
             si la bandeja del sistema está oculta.
 
             Antes de enviarla, quita este código XAML y la propia imagen.-->
-        <!--<Image Source="/Assets/AlignmentGrid.png" VerticalAlignment="Top" Height="800" Width="480" Margin="0,-32,0,0" Grid.Row="0" Grid.RowSpan="2" IsHitTestVisible="False" />-->
-    </Grid>
+		<!--<Image Source="/Assets/AlignmentGrid.png" VerticalAlignment="Top" Height="800" Width="480" Margin="0,-32,0,0" Grid.Row="0" Grid.RowSpan="2" IsHitTestVisible="False" />-->
+    <!--TitlePanel contiene el nombre de la aplicación y el título de la página-->
+		<StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+			<TextBlock Text="Datos Abiertos" Style="{StaticResource PhoneTextNormalStyle}" Margin="12,0"/>
+			<TextBlock Text="Menú Datos" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+		</StackPanel>
+
+        <!--ContentPanel. Colocar aquí el contenido adicional-->
+		<Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+			<ListBox x:Name="listaDirectorios" ItemsSource="{Binding Directorios}" ItemTemplate="{StaticResource estiloDirectorio}" >
+				<ListBox.DataContext>
+					<ViewModel:MainViewModel/>
+				</ListBox.DataContext>
+			</ListBox>
+		</Grid>
+
+	</Grid>
 
 </phone:PhoneApplicationPage>

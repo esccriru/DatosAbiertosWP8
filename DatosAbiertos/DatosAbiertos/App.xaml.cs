@@ -7,6 +7,7 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using DatosAbiertos.Resources;
+using DatosAbiertos.ViewModel;
 
 namespace DatosAbiertos
 {
@@ -17,6 +18,21 @@ namespace DatosAbiertos
         /// </summary>
         /// <returns>Marco raíz de la aplicación telefónica.</returns>
         public static PhoneApplicationFrame RootFrame { get; private set; }
+
+        private static MainViewModel viewModel;
+
+        internal static MainViewModel ViewModel
+        {
+            get 
+            {
+                if (viewModel == null)
+                {
+                    viewModel = new MainViewModel();
+                }
+                return viewModel; 
+            }
+            set { viewModel = value; }
+        }
 
         /// <summary>
         /// Constructor para el objeto Application.
